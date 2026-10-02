@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skins — MineCraft Launcher</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="brand">
+            <span class="brand-logo">🎮</span>
+            <span class="brand-name">ProLauncher</span>
+        </div>
+        <a href="login.html" class="user-badge-link" title="Gérer le compte">
+            <div class="user-badge">
+                <span class="user-avatar" id="nav-avatar">?</span>
+                <span class="user-name" id="nav-username">Non connecté</span>
+            </div>
+        </a>
+    </header>
+
+    <main class="page-container">
+        <section class="card skins-card">
+            <div class="card-title">
+                <h1>Galerie de Skins</h1>
+                <p>Choisissez et téléchargez vos skins personnalisés</p>
+            </div>
+            
+            <div class="skins-grid">
+                <a href="Jettism.png" download="Jettism.png" class="skin-card">
+                    <span class="skin-name">Jettism</span>
+                    <span class="btn btn-sm">Télécharger .png</span>
+                </a>
+
+                <a href="Dream.png" download="Dream.png" class="skin-card">
+                    <span class="skin-name">Dream</span>
+                    <span class="btn btn-sm">Télécharger .png</span>
+                </a>
+
+                <a href="Daquavis.png" download="Daquavis.png" class="skin-card">
+                    <span class="skin-name">Daquavis</span>
+                    <span class="btn btn-sm">Télécharger .png</span>
+                </a>
+
+                <a href="DrDonut.png" download="DrDonut.png" class="skin-card">
+                    <span class="skin-name">DrDonut</span>
+                    <span class="btn btn-sm">Télécharger .png</span>
+                </a>
+            </div>
+
+            <footer class="card-footer">
+                <a href="index.html" class="btn btn-back">
+                    ← Retour à l'accueil
+                </a>
+            </footer>
+        </section>
+    </main>
+
+    <script>
+        const savedUser = localStorage.getItem('username');
+        if (savedUser) {
+            document.getElementById('nav-username').textContent = savedUser;
+            document.getElementById('nav-avatar').textContent = savedUser.charAt(0).toUpperCase();
+        }
+    </script>
+</body>
+</html>

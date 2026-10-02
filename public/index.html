@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil — ProLauncher</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="brand">
+            <span class="brand-logo">🎮</span>
+            <span class="brand-name">ProLauncher</span>
+        </div>
+        <div id="user-container">
+            <!-- Rempli dynamiquement par le script -->
+        </div>
+    </header>
+
+    <main class="page-container">
+        <section class="card main-card">
+            <div class="card-title">
+                <h1>Bienvenue sur le Launcher</h1>
+                <p>Téléchargez les ressources et préparez votre jeu</p>
+            </div>
+
+            <div class="button-group">
+                <a href="skins.html" class="btn btn-primary">
+                    🎭 Galerie de Skins
+                </a>
+
+                <a href="Launcher.exe" download="launcher.exe" class="btn btn-success">
+                    🚀 Télécharger le Launcher
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function checkAuth() {
+            const res = await fetch('/api/me');
+            const data = await res.json();
+            const container = document.getElementById('user-container');
+
+            if (data.loggedIn) {
+                container.innerHTML = `
+                    <div class="user-badge">
+                        <span class="user-avatar">${data.username.charAt(0).toUpperCase()}</span>
+                        <span class="user-name">${data.username}</span>
+                        <button onclick="logout()" class="btn-logout" title="Déconnexion">✕</button>
+                    </div>`;
+            } else {
+                container.innerHTML = `
+                    <a href="login.html" class="btn btn-sm">Connexion</a>
+                    <a href="register.html" class="btn btn-sm btn-primary">Inscription</a>`;
+            }
+        }
+
+        async function logout() {
+            await fetch('/api/logout', { method: 'POST' });
+            window.location.reload();
+        }
+
+        checkAuth();
+    </script>
+</body>
+</html>

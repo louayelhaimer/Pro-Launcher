@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion — ProLauncher</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body-center">
+
+    <main class="card login-card">
+        <div class="card-title">
+            <h1>Connexion</h1>
+            <p>Accédez à votre compte joueur</p>
+        </div>
+        
+        <form id="login-form" class="login-form">
+            <div class="input-group">
+                <label for="username">Nom d'utilisateur / Pseudo</label>
+                <input type="text" id="username" class="input-field" placeholder="Ex: Player123" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" class="input-field" placeholder="••••••••" required>
+            </div>
+
+            <!-- Zone d'affichage des erreurs -->
+            <p id="error-message" class="error-text"></p>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                Se connecter
+            </button>
+        </form>
+
+        <footer class="card-footer">
+            <a href="register.html" class="link-secondary">Pas encore de compte ? S'inscrire</a><br><br>
+            <a href="index.html" class="link-secondary">← Retour à l'accueil</a>
+        </footer>
+    </main>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = ''; // Réinitialise l'erreur
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok && data.success) {
+                    window.location.href = 'index.html';
+                } else {
+                    // Affiche l'erreur sous les champs
+                    errorElement.textContent = data.error || 'Identifiants incorrects.';
+                }
+            } catch (err) {
+                errorElement.textContent = 'Impossible de contacter le serveur.';
+            }
+        });
+    </script>
+
+</body>
+</html>
